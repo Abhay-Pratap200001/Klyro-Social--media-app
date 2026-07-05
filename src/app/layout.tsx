@@ -6,6 +6,7 @@ import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -51,7 +52,9 @@ export default function RootLayout({
               <main className="py-8">
                 <div className="max-w-7xl mx-auto px-4">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <div className="hidden lg:block lg:col-span-3">sidebar</div>
+                    <div className="hidden lg:block lg:col-span-3">
+                      <Sidebar />
+                    </div>
                     <div className="lg:col-sp-9">{children}</div>
                   </div>
                 </div>
