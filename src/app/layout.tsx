@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import {Toaster} from 'react-hot-toast'
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -55,11 +56,12 @@ export default function RootLayout({
                     <div className="hidden lg:block lg:col-span-3">
                       <Sidebar />
                     </div>
-                    <div className="lg:col-sp-9">{children}</div>
+                    <div className="lg:col-span-9">{children}</div>
                   </div>
                 </div>
               </main>
             </div>
+            <Toaster/>
           </ThemeProvider>
         </ClerkProvider>
       </body>
