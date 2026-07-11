@@ -18,23 +18,23 @@ function CreatePost() {
   const [showImageUpload, setShowImageUpload] = useState(false);
 
   const handleSubmit = async () => {
-    if (!content.trim() && !imageUrl) return
-    setIsPosting(true)
+    if (!content.trim() && !imageUrl) return;
+    setIsPosting(true);
     try {
-       const res = await createPost(content, imageUrl)
-       if (res.success) {
-        setContent("")
-        setImageUrl("")
-        setShowImageUpload(false)
-        toast.success("Post created successfully")
-       }
+      const res = await createPost(content, imageUrl);
+      if (res.success) {
+        setContent("");
+        setImageUrl("");
+        setShowImageUpload(false);
+        toast.success("Post created successfully");
+      }
     } catch (error) {
-        console.log("Failed to create post", error);
-        toast.error("Failed to create post")    
-    }finally{
-        setIsPosting(false)
+      console.log("Failed to create post", error);
+      toast.error("Failed to create post");
+    } finally {
+      setIsPosting(false);
     }
-  }
+  };
 
   return (
     <Card className="mb-6">
@@ -61,7 +61,8 @@ function CreatePost() {
                 size="sm"
                 className="text-muted-foreground hover:text-primary"
                 onClick={() => setShowImageUpload(!showImageUpload)}
-                disabled={isPosting}>
+                disabled={isPosting}
+              >
                 <ImageIcon className="size-4 mr-2" />
                 Photo
               </Button>
@@ -87,7 +88,6 @@ function CreatePost() {
         </div>
       </CardContent>
     </Card>
-
   );
 }
 

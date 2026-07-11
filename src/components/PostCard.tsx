@@ -237,7 +237,9 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                         className="flex items-center gap-2"
                         disabled={!newComment.trim() || isCommenting}
                       >
-                        {isCommenting ? (  "Posting..." ) : (
+                        {isCommenting ? (
+                          "Posting..."
+                        ) : (
                           <>
                             <SendIcon className="size-4" />
                             Comment
