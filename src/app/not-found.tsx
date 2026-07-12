@@ -21,8 +21,8 @@ export default function NotFound() {
           </h2>
 
           <p className="mx-auto max-w-md text-gray-600 dark:text-gray-400">
-            The page youre looking for doesnt exist, may have been moved,
-            or the URL might be incorrect.
+            The page youre looking for doesnt exist, may have been moved, or the
+            URL might be incorrect.
           </p>
         </div>
 
