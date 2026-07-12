@@ -19,7 +19,7 @@ export async function createPost(content:string, imageUrl:string) {
         return {success: true, post}
     } catch (error) {
         console.log("Failed to create post:", error);
-        return {success: false, erro: "Failed to create post"};
+        return {success: false, error: "Failed to create post"};
     }
 }
 
@@ -28,7 +28,7 @@ export async function getPosts() {
     try {
         const post = await prisma.post.findMany({
             orderBy:{
-                createAt: "desc"
+                createdAt: "desc"
             },
             include:{
                 author:{
@@ -70,8 +70,7 @@ export async function getPosts() {
         return post
     } catch (error) {
         console.log("Error in get posts", error)
-        throw new Error("Failed to fetch posts");
-        
+        return [];
     }
 }
 

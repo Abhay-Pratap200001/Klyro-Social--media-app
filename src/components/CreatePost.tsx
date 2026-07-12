@@ -22,11 +22,13 @@ function CreatePost() {
     setIsPosting(true);
     try {
       const res = await createPost(content, imageUrl);
-      if (res.success) {
+      if (res?.success) {
         setContent("");
         setImageUrl("");
         setShowImageUpload(false);
         toast.success("Post created successfully");
+      } else {
+        toast.error("Failed to create post");
       }
     } catch (error) {
       console.log("Failed to create post", error);

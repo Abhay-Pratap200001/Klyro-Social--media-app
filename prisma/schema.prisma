@@ -23,7 +23,7 @@ model User {
   image     String?
   location  String?
   website   String?
-  createAt  DateTime @default(now())
+  createdAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   //Reations: 
@@ -44,7 +44,7 @@ model Post {
   authorId  String
   content   String?
   image     String?
-  createAt  DateTime @default(now())
+  createdAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   //Reations

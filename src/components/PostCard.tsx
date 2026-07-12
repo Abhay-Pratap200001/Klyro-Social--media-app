@@ -111,7 +111,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                     </Link>
                     <span>•</span>
                     <span>
-                      {formatDistanceToNow(new Date(post.createAt))} ago
+                      {formatDistanceToNow(new Date(post.createdAt))} ago
                     </span>
                   </div>
                 </div>
@@ -131,11 +131,12 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
 
           {/* post image */}
           {post.image && (
-            <div className="rounded-lg overflow-hidden">
+            <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
                 src={post.image}
                 alt="Post content"
-                className="w-full h-auto object-cover"
+                fill
+                className="object-cover"
               />
             </div>
           )}

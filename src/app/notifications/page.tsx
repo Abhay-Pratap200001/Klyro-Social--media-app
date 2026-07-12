@@ -44,7 +44,6 @@ function NotificationsPage() {
         if (unreadIds.length > 0) await markNotificationsAsRead(unreadIds);
       } catch (error) {
         toast.error("Failed to fetch notifications");
-        throw new Error("Faile to fetch notifications");
       } finally {
         setIsLoading(false);
       }
@@ -107,11 +106,14 @@ function NotificationsPage() {
                           <div className="text-sm text-muted-foreground rounded-md p-2 bg-muted/30 mt-2">
                             <p>{notification.post.content}</p>
                             {notification.post.image && (
-                              <Image
-                                src={notification.post.image}
-                                alt="Post content"
-                                className="mt-2 rounded-md w-full max-w-[200px] h-auto object-cover"
-                              />
+                              <div className="relative mt-2 w-full max-w-[200px] aspect-video">
+                                <Image
+                                  src={notification.post.image}
+                                  alt="Post content"
+                                  fill
+                                  className="rounded-md object-cover"
+                                />
+                              </div>
                             )}
                           </div>
 
