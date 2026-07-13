@@ -23,12 +23,49 @@ import {
   SendIcon,
 } from "lucide-react";
 import { Textarea } from "./ui/textarea";
+import {
+  DoodleBolt,
+  DoodleDots,
+  DoodleSparkle,
+  DoodleStar,
+  DoodleZigzag,
+} from "./decorative/Doodles";
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
 
-function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
+const SURFACES = [
+  "surface-yellow",
+  "surface-lavender",
+  "surface-peach",
+  "surface-cream",
+  "surface-pink",
+];
+
+const CORNER_ACCENTS = [
+  "text-brand-yellow/35",
+  "text-brand-purple/35",
+  "text-brand-orange/35",
+  "text-brand-yellow-secondary/40",
+  "text-brand-pink/35",
+];
+
+const CORNER_DOODLES = [DoodleSparkle, DoodleStar, DoodleBolt, DoodleZigzag, DoodleDots];
+
+function PostCard({
+  post,
+  dbUserId,
+  index = 0,
+}: {
+  post: Post;
+  dbUserId: string | null;
+  index?: number;
+}) {
   const { user } = useUser();
+  const surfaceClass = SURFACES[index % SURFACES.length];
+  const accentClass = CORNER_ACCENTS[index % CORNER_ACCENTS.length];
+  const CornerDoodleA = CORNER_DOODLES[index % CORNER_DOODLES.length];
+  const CornerDoodleB = CORNER_DOODLES[(index + 2) % CORNER_DOODLES.length];
   const [newComment, setNewComment] = useState("");
   const [isCommenting, setIsCommenting] = useState(false);
   const [isLinking, setIsLinking] = useState(false);
@@ -85,12 +122,14 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
   };
 
   return (
-    <Card className="overflow-hidden">
+    <Card className={`card-hover relative overflow-visible ${surfaceClass}`}>
+      <CornerDoodleA className={`doodle absolute -top-2 -right-2 size-4 ${accentClass}`} />
+      <CornerDoodleB className={`doodle absolute bottom-4 -left-2 size-4 ${accentClass}`} />
       <CardContent className="p-4 sm:p-6">
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div className="flex space-x-3 sm:space-x-4">
             <Link href={`/profile/${post.author.username}`}>
-              <Avatar className="size-8 sm:w-10 sm:h-10">
+              <Avatar className="size-10 sm:size-12">
                 <AvatarImage src={post.author.image ?? "/avatar.png"} />
               </Avatar>
             </Link>
@@ -123,7 +162,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                   />
                 )}
               </div>
-              <p className="mt-2 text-sm text-foreground break-words">
+              <p className="mt-3 text-sm text-foreground break-words">
                 {post.content}
               </p>
             </div>
@@ -131,7 +170,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
 
           {/* post image */}
           {post.image && (
-            <div className="relative aspect-video rounded-lg overflow-hidden">
+            <div className="img-zoom relative aspect-video rounded-2xl">
               <Image
                 src={post.image}
                 alt="Post content"
@@ -143,15 +182,15 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
 
           {/* LIKE & COMMENT BUTTONS */}
 
-          <div className="flex items-center pt-2 space-x-4">
+          <div className="flex items-center pt-1 space-x-4">
             {user ? (
               <Button
                 variant="ghost"
                 size="sm"
-                className={`text-muted-foreground gap-2 ${
+                className={`gap-2 text-muted-foreground ${
                   hasLiked
-                    ? "text-red-500 hover:text-red-600"
-                    : "hover:text-red-500"
+                    ? "text-brand-pink hover:text-brand-pink"
+                    : "hover:text-brand-pink"
                 }`}
                 onClick={handleLike}
               >
@@ -178,11 +217,11 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
             <Button
               variant="ghost"
               size="sm"
-              className="text-muted-foreground gap-2 hover:text-blue-500"
+              className="text-muted-foreground gap-2 hover:text-brand-blue"
               onClick={() => setShowComments((prev) => !prev)}
             >
               <MessageCircleIcon
-                className={`size-5 ${showComments ? "fill-blue-500 text-blue-500" : ""}`}
+                className={`size-5 ${showComments ? "fill-brand-blue text-brand-blue" : ""}`}
               />
               <span>{post.comments.length}</span>
             </Button>
@@ -190,7 +229,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
 
           {/* comment section */}
           {showComments && (
-            <div className="space-y-4 pt-4 border-t">
+            <div className="space-y-4 pt-4 border-t border-border">
               <div className="space-y-4">
                 {/* DISPLAY COMMENTS */}
                 {post.comments.map((comment) => (
@@ -251,7 +290,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-center p-4 border rounded-lg bg-muted/50">
+                <div className="flex justify-center p-4 border border-border rounded-2xl bg-muted/50">
                   <SignInButton mode="modal">
                     <Button variant="outline" className="gap-2">
                       <LogInIcon className="size-4" />

@@ -187,7 +187,9 @@ function ProfilePageClient({isFollowing:intialFollowing, likedPosts, posts, user
           <TabsContent value="posts" className="mt-6">
             <div className="space-y-6">
               {posts.length > 0 ? (
-                posts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
+                posts.map((post, index) => (
+                  <PostCard key={post.id} post={post} dbUserId={user.id} index={index} />
+                ))
               ) : (
                 <div className="text-center py-8 text-muted-foreground">No posts yet</div>
               )}
@@ -197,7 +199,9 @@ function ProfilePageClient({isFollowing:intialFollowing, likedPosts, posts, user
           <TabsContent value="likes" className="mt-6">
             <div className="space-y-6">
               {likedPosts.length > 0 ? (
-                likedPosts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
+                likedPosts.map((post, index) => (
+                  <PostCard key={post.id} post={post} dbUserId={user.id} index={index} />
+                ))
               ) : (
                 <div className="text-center py-8 text-muted-foreground">No liked posts to show</div>
               )}
